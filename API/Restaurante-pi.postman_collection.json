@@ -1,0 +1,175 @@
+{
+	"info": {
+		"_postman_id": "f2624714-a17c-430c-8c5a-221cf8f0514f",
+		"name": "Restaurante-pi",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17527431"
+	},
+	"item": [
+		{
+			"name": "Salvar Pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"data\": \"2022-05-07T20:23:00.571Z\",\r\n    \"mesaComanda\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/pedido/salvar",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pedido",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Salvar Produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"codigo\": 123,\r\n    \"descricao\": \"H2O Limoneto\",\r\n    \"preco\": 6.50\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/produto/salvar",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"produto",
+						"salvar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Adicionar itens pedido",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n    {\r\n        \"idProduto\": 1,\r\n        \"quantidade\": 2\r\n    },\r\n    {\r\n        \"idProduto\": 2,\r\n        \"quantidade\": 3\r\n    }\r\n]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/itens/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"itens",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar produtos",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/produto/listar",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"produto",
+						"listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Pedido",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/pedido/2",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pedido",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar pedido",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/pedido/3",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"pedido",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remover itens",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8081/itens?idsItem=11,12,13,14",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"itens"
+					],
+					"query": [
+						{
+							"key": "idsItem",
+							"value": "11,12,13,14"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
