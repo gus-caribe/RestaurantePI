@@ -1,0 +1,45 @@
+GET
+/produto/listar
+	Esse método é resposável por listar todos os produtos cadastrados em banco.
+	Uso: /produto/listar
+POST
+/produto/salvar
+	Esse método é responsável por cadastrar um produto. Não será utilizado na aplicação, só foi criado para facilitar no cadastro de produtos para alimentar o banco.
+	Uso: /produto/salvar (o objeto é passado no body)
+DELETE
+/produto/{idProduto}
+	Esse método é responsável por deletar o produto passado por parâmetro.
+	Uso: /produto/321
+
+
+
+
+
+POST
+/pedido/salvar
+	Esse método é utilizado para registrar um pedido, junto da sua lista de itens.
+	Uso: /pedido/salvar (o objeto é passado no body)
+GET
+/pedido/{idPedido}
+	Esse método é utilizado para obter um pedido já criado passando por parâmetro o id dele.
+	Uso: /pedido/321
+DELETE
+/pedido/{idPedido}
+	Esse método é utilizado para deletar um pedido já criado passando por parâmetro o id dele.
+	Uso: /pedido/321
+
+
+
+
+
+POST
+/itens/{idPedido}
+	Esse método é utilizado para adicionar um iem a um pedido, passando o id do pedido por parâmetro e o objeto item pelo body.
+	Uso: /itens/666 (o objeto item é passado no body)
+
+DELETE 
+/itens
+	Esse método é utilizado para deletar itens já criados passando os mesmos por parâmetro.
+	Uso: /itens?idsItem=321,123
+	
+	

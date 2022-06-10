@@ -2,6 +2,7 @@ package com.unaerp.restaurantepi.controller;
 
 import com.unaerp.restaurantepi.dto.ItemDTO;
 import com.unaerp.restaurantepi.model.Item;
+import com.unaerp.restaurantepi.model.Produto;
 import com.unaerp.restaurantepi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,14 @@ public class ItemController {
 
     @Autowired
     private ItemService itemService;
+
+    @GetMapping("/item/listar/{idPedido}")
+    public List<Item> listarProdutos(
+            @PathVariable Integer idPedido,
+            @RequestBody List<ItemDTO> itensDTO
+    ) {
+        return itemService.listarItens(idPedido, itensDTO);
+    }
 
     @PostMapping("/itens/{idPedido}")
     public List<Item> adicionarItens(
