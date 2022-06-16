@@ -1,10 +1,13 @@
 package com.example.projetorestaurante.activities;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -23,12 +26,17 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import okhttp3.RequestBody;
 import okhttp3.Response;
 
 import java.io.IOException;
@@ -57,8 +65,10 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        client = new OkHttpClient();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -92,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
+
+        salvarPedido();
     }
 
 
@@ -152,6 +164,63 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
         );
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void salvarPedido() {
+        Pedido pedido = new Pedido();
+
+        pedido.setData(new Date());
+        pedido.setMesaComanda(1231);
+
+        Request request = null;
+
+        RequestBody body = null;
+        {
+            try {
+                body = RequestBody.create(objectMapper.writeValueAsString(pedido), MediaType.get("application/json"));
+                request = new Request.Builder()
+                        .url("http://localhost:8081/pedido/salvar")
+                                .method("POST", body)
+                                .build();
+
+                client.newCall(request).enqueue(new Callback() {
+                    @Override
+                    public void onFailure(@NonNull Call call, @NonNull IOException e) {
+                        runOnUiThread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MainActivity.this, "Deu errado fion", Toast.LENGTH_SHORT).show();
+                                        System.out.println(e.getLocalizedMessage());
+                                    }
+                                }
+                        );
+
+                        //Toast.makeText(MainActivity.this, "Deu errado fion", Toast.LENGTH_SHORT).show();
+                        //System.out.println("Deu ERRADO fion");
+                    }
+
+                    @Override
+                    public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                        runOnUiThread(
+                                new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        Toast.makeText(MainActivity.this, "Deu CERTO fion", Toast.LENGTH_SHORT).show();
+                                        System.out.println("Deu CERTO fion");
+                                    }
+                                }
+                        );
+
+                        //Toast.makeText(MainActivity.this, "Deu CERTO fion", Toast.LENGTH_SHORT).show();
+                        //System.out.println("Deu CERTO fion");
+                    }
+                });
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /*public List<Item> listarTodosOsItensDeUmPedido(int idPedido) {

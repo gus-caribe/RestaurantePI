@@ -2,6 +2,7 @@ package com.unaerp.restaurantepi.controller;
 
 import com.unaerp.restaurantepi.dto.ItemDTO;
 import com.unaerp.restaurantepi.model.Item;
+import com.unaerp.restaurantepi.model.Pedido;
 import com.unaerp.restaurantepi.model.Produto;
 import com.unaerp.restaurantepi.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +19,9 @@ public class ItemController {
 
     @GetMapping("/item/listar/{idPedido}")
     public List<Item> listarProdutos(
-            @PathVariable Integer idPedido,
-            @RequestBody List<ItemDTO> itensDTO
+            @PathVariable Integer idPedido
     ) {
-        return itemService.listarItens(idPedido, itensDTO);
+        return itemService.listarItens(idPedido);
     }
 
     @PostMapping("/itens/{idPedido}")
@@ -33,8 +33,12 @@ public class ItemController {
     }
 
     @DeleteMapping("/itens")
-    public ResponseEntity removeItem(@RequestParam List<Integer> idsItem) {
+    public void removeItem(@RequestParam List<Integer> idsItem) {
         itemService.removeItem(idsItem);
-        return ResponseEntity.ok().build();
+    }
+
+    @PatchMapping("/item/alterar")
+    public ResponseEntity<Item> alterarItem(@RequestBody Item item) {
+        return ResponseEntity.ok(itemService.alterarItem(item));
     }
 }

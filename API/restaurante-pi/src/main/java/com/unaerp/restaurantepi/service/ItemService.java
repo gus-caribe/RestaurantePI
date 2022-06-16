@@ -40,27 +40,22 @@ public class ItemService {
             return new Item(pedido.get(), produto.get(), itemDTO.getQuantidade());
         }).collect(Collectors.toList()));
     }
-    public List<Item> listarItens(Integer idPedido, List<ItemDTO> itensDTO) {
+
+    public List<Item> listarItens(Integer idPedido) {
         Optional<Pedido> pedido = pedidoDao.findById(idPedido);
 
         if (pedido.isEmpty()) {
             return Collections.emptyList();
         }
 
-        /*return itemDao.findAll(itensDTO.stream().map(itemDTO -> {
-            Optional<Produto> produto = produtoDao.findById(itemDTO.getIdProduto());
-
-            if (produto.isEmpty())
-                return null;
-
-            return new Item(pedido.get(), produto.get(), itemDTO.getQuantidade());
-        }).collect(Collectors.toList()));*/
-
         return itemDao.findByPedido(pedido.get());
     }
 
-
     public void removeItem(List<Integer> idsItem) {
         itemDao.deleteAllById(idsItem);
+    }
+
+    public Item alterarItem(Item item) {
+        return itemDao.save(item);
     }
 }
